@@ -18,15 +18,18 @@ pipeline {
                 sh "docker build -t ${docker_repo_uri}:${commit_id} ."
             }
          }
-        stage('pushing to ECR') {
+        stage('Push image to AWS ECR') {
             steps {
-                echo "pushing image to ECR... ${docker_repo_uri}:${commit_id}"
+                // Get Docker login credentials for ECR
+                sh "aws ecr get-login --no-include-email --region ${region} | sh"
+                // Push Docker image
+                sh "docker push ${docker_repo_uri}:${commit_id}"
             }
         }
-        stage('cleaning up') {
+        stage('Deploy') {
             steps {
                 // Clean up
-                echo "cleaning up -> docker rmi -f ${docker_repo_uri}:${commit_id}"
+                echo "Deploying -> ${docker_repo_uri}:${commit_id}"
             }
         }
     }
