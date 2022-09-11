@@ -11,8 +11,8 @@ pipeline {
              steps {
                 // Get SHA1 of current commit
                 script {
-                    //commit_id = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
-		    //image_id = sh(script: "echo ${docker_repo_uri}:${commit_id}", returnStdout: true).trim()
+                    commit_id = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+		    image_id = sh(script: "echo ${docker_repo_uri}:${commit_id}", returnStdout: true).trim()
 			
                 }
                 // Build the Docker image
