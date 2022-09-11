@@ -26,6 +26,7 @@ pipeline {
 		sshagent(credentials : ['jenkins-ssh-app']) {
 			    sh 'ssh -o StrictHostKeyChecking=no ubuntu@184.72.120.134 uptime'
 			    sh 'ssh -v ubuntu@184.72.120.134'
+		}
             }
         }
     }
