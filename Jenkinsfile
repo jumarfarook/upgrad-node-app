@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     sshagent(credentials : ['jenkins-ssh-app']) {
-                        sh "sudo ssh -tt ubuntu@184.72.120.134 -o StrictHostKeyChecking=no $remote_commands"
+                        sh "ssh -tt ubuntu@184.72.120.134 -o StrictHostKeyChecking=no $remote_commands"
                     }
                 }
             }
