@@ -26,7 +26,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Clean up
-                echo "Deploying -> ${docker_repo_uri}:${commit_id}"
+                sh "docker run -d -p 8090:8090 ${docker_repo_uri}:${commit_id}"
             }
         }
     }
