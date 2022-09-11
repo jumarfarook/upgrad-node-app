@@ -7,8 +7,7 @@ pipeline {
 	docker_repo_uri = "075059366645.dkr.ecr.us-east-1.amazonaws.com/upgrad-repo"
         container_name = "upgrad-node-app"
 	remote_commands =
-	      """docker --version;
-	    docker --version;
+	      """docker rm $(docker stop $(docker ps -a -q --filter name=${container_name} --format="{{.ID}}")>/dev/null 2>&1) >/dev/null 2>&1;
 	    docker --version """
     }
 
