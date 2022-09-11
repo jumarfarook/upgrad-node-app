@@ -3,6 +3,7 @@
 pipeline {
     agent any
     environment {
+	region = "us-east-1"    
 	docker_repo_uri = "075059366645.dkr.ecr.us-east-1.amazonaws.com/upgrad-repo"
     }
 
@@ -19,6 +20,9 @@ pipeline {
                 //sh "docker build -t ${docker_repo_uri}:${commit_id} ."
                 // Push Docker image
                 //sh "docker push ${docker_repo_uri}:${commit_id}"
+		     
+		// Get Docker login credentials for ECR
+                sh "aws ecr get-login --no-include-email --region ${region} | sh"
 		     
 		// Build the Docker image
                 sh "docker build -t ${docker_repo_uri}:latest ."
