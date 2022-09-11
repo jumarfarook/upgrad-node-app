@@ -26,14 +26,16 @@ pipeline {
             }
          }
         stage('Deploy') {
-            script {
-	    	 	sshagent(credentials : ['jenkins-ssh-app']) {
-		    		sh 'ssh -t -t ubuntu@184.72.120.134 -o StrictHostKeyChecking=no'
-					sh 'sudo -i -u root'
-					sh 'cd /home/ubuntu'
-					sh 'echo pwd'
-	    		}
-			}
+            steps {
+                script {
+                    sshagent(credentials : ['jenkins-ssh-app']) {
+                        sh 'ssh -t -t ubuntu@184.72.120.134 -o StrictHostKeyChecking=no'
+                        sh 'sudo -i -u root'
+                        sh 'cd /home/ubuntu'
+                        sh 'echo pwd'
+                    }
+                }
+            }
         }
     }
 }
