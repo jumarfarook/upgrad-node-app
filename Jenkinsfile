@@ -6,7 +6,6 @@ pipeline {
 		region = "us-east-1"  
 		docker_repo_uri = "075059366645.dkr.ecr.us-east-1.amazonaws.com/upgrad-repo"
         container_name = "upgrad-node-app"
-        remote_commands = "sudo docker run -d --name=${container_name} -p 8090:8090 ${docker_repo_uri}:latest"
     }
 
     stages {
@@ -30,7 +29,8 @@ pipeline {
             steps {
                 script {
                     sshagent(credentials : ['jenkins-ssh-app']) {
-                        sh "ssh -tt ubuntu@184.72.120.134 -o StrictHostKeyChecking=no $remote_commands"
+                        sh "ssh -tt ubuntu@184.72.120.134 -o StrictHostKeyChecking=no sudo docker rm $(docker stop $(docker ps -a -q --filter name=${container_name} --format="{{.ID}}")>/dev/null 2>&1) >/dev/null 2>&1"
+                        sh "ssh -tt ubuntu@184.72.120.134 -o StrictHostKeyChecking=no sudo docker run -d --name=${container_name} -p 8090:8090 ${docker_repo_uri}:latest"
                     }
                 }
             }
