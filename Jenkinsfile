@@ -25,7 +25,7 @@ pipeline {
                 echo "docker run -d --name=upgrad-node-app -p 8090:8090 ${docker_repo_uri}:${commit_id}"
 		sshagent(credentials : ['jenkins-ssh-app']) {
 			    sh 'ssh -o StrictHostKeyChecking=no ubuntu@184.72.120.134 uptime'
-			    sh 'ssh -o StrictHostKeyChecking=no ubuntu@184.72.120.134 docker run -d --name=upgrad-node-app -p 8090:8090 ${docker_repo_uri}:fd70b45'
+			    sh 'ssh -o StrictHostKeyChecking=no ubuntu@184.72.120.134 sudo docker run -d --name=upgrad-node-app -p 8090:8090 ${docker_repo_uri}:fd70b45'
 		}
             }
         }
