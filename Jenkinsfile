@@ -12,6 +12,8 @@ pipeline {
                 // Get SHA1 of current commit
                 script {
                     commit_id = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+		    image_id = sh(script: "${docker_repo_uri}:${commit_id}", returnStdout: true).trim()
+			
                 }
                 // Build the Docker image
                 sh "docker build -t ${docker_repo_uri}:${commit_id} ."
@@ -22,10 +24,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Clean up
-                echo "docker run -d --name=upgrad-node-app -p 8090:8090 ${docker_repo_uri}:${commit_id}"
+                echo "docker run -d --name=upgrad-node-app -p 8090:8090 ${image_id}"
 		sshagent(credentials : ['jenkins-ssh-app']) {
 			    sh 'ssh -o StrictHostKeyChecking=no ubuntu@184.72.120.134 uptime'
-			    sh 'ssh -o StrictHostKeyChecking=no ubuntu@184.72.120.134 sudo "docker run -d --name=upgrad-node-app -p 8090:8090 ${docker_repo_uri}:${commit_id}"'
+			    echo 'ssh -o StrictHostKeyChecking=no ubuntu@184.72.120.134 sudo docker run -d --name=upgrad-node-app -p 8090:8090 ${docker_repo_uri}:${commit_id}'
 		}
             }
         }
