@@ -7,9 +7,9 @@ pipeline {
 	docker_repo_uri = "075059366645.dkr.ecr.us-east-1.amazonaws.com/upgrad-repo"
         container_name = "upgrad-node-app"
 	remote_commands =
-	      """java --version;
-	    java --version;
-	    java --version """
+	      """docker --version;
+	    docker --version;
+	    docker --version """
     }
 
     stages {
