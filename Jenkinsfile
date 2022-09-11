@@ -23,7 +23,14 @@ pipeline {
             steps {
                 // Clean up
                 echo "docker run -d --name=upgrad-node-app -p 8090:8090 ${docker_repo_uri}:${commit_id}"
-		sh "ssh -i /var/lib/jenkins/.ssh/id_rsa ubuntu@184.72.120.134 "echo appserver-date: $(date)""
+		sh '''#!/bin/bash
+				date
+				ssh -i /var/lib/jenkins/.ssh/id_rsa ubuntu@184.72.120.134 << ENDSSH
+			    	date
+			    	cd ~
+			    	pwd
+			ENDSSH
+			'''
             }
         }
     }
