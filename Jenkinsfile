@@ -23,14 +23,9 @@ pipeline {
             steps {
                 // Clean up
                 echo "docker run -d --name=upgrad-node-app -p 8090:8090 ${docker_repo_uri}:${commit_id}"
-		sh '''#!/bin/bash
-				date
-				ssh -i /var/lib/jenkins/.ssh/id_rsa ubuntu@184.72.120.134 << ENDSSH
-			    	date
-			    	cd ~
-			    	pwd
-			ENDSSH
-			'''
+		sshagent(credentials : ['jenkins-ssh-app']) {
+			    sh 'ssh -o StrictHostKeyChecking=no ubuntu@184.72.120.134 uptime'
+			    sh 'ssh -v ubuntu@184.72.120.134'
             }
         }
     }
