@@ -35,7 +35,7 @@ pipeline {
 				sudo docker rm $(docker stop $(docker ps -a -q --filter name=${container_name} --format="{{.ID}}")>/dev/null 2>&1)>/dev/null 2>&1;
 				sudo docker run -d --name=${container_name} -p 8090:8090 ${docker_repo_uri}:latest;
 				exit 0;
-				<< EOF"""
+				EOF"""
                     }
                 }
             }
