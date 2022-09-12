@@ -31,7 +31,7 @@ pipeline {
                     sshagent(credentials : ['jenkins-ssh-app']) {
 			    sh """
 				ssh -tt ubuntu@54.165.226.254 -o StrictHostKeyChecking=no << EOF
-				sudo docker run -d --name=${container_name} -p 8090:8090 ${docker_repo_uri}:latest;
+				sudo docker run -d --name=${container_name} -p 8090:8090 ${docker_repo_uri}:latest >/dev/null 2>&1;
 				exit;
 				EOF"""
                     }
