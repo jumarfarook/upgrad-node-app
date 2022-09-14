@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     sshagent(credentials : ['jenkins-ssh-app']) {
-			    sh "ssh -tt ubuntu@54.165.226.254 -o StrictHostKeyChecking=no sudo docker run -d --name=${container_name} -p 8090:8090 ${docker_repo_uri}:latest;"
+			    sh "ssh -tt ubuntu@10.0.1.205 -o StrictHostKeyChecking=no sudo docker run -d --name=${container_name} -p 8090:8090 ${docker_repo_uri}:latest;"
                     }
                 }
             }
