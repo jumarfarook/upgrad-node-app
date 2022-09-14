@@ -4,7 +4,7 @@ pipeline {
     agent any
     environment {
 	region = "us-east-1"  
-	docker_repo_uri = "075059366645.dkr.ecr.us-east-1.amazonaws.com/upgrad-repo"
+	docker_repo_uri = "075059366645.dkr.ecr.us-east-1.amazonaws.com/514-umarf-c5-node-repo"
         container_name = "upgrad-node-app"
     }
 
